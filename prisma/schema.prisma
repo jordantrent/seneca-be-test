@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model courses {
+  courseId   String     @id @db.Char(36)
+  courseName String?    @db.VarChar(255)
+  createdAt  DateTime?  @default(now()) @db.Timestamp(0)
+  sessions   sessions[]
+}
+
+model sessions {
+  sessionId           String    @id @db.Char(36)
+  userId              String?   @db.Char(36)
+  courseId            String?   @db.Char(36)
+  totalModulesStudied Int?
+  averageScore        Decimal?  @db.Decimal(5, 2)
+  timeStudied         Int?
+  createdAt           DateTime? @default(now()) @db.Timestamp(0)
+  users               users?    @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "sessions_ibfk_1")
+  courses             courses?  @relation(fields: [courseId], references: [courseId], onDelete: NoAction, onUpdate: NoAction, map: "sessions_ibfk_2")
+
+  @@index([courseId], map: "courseId")
+  @@index([userId], map: "userId")
+}
+
+model users {
+  userId    String     @id @db.Char(36)
+  firstName String?    @db.VarChar(100)
+  lastName  String?    @db.VarChar(100)
+  email     String?    @unique(map: "email") @db.VarChar(255)
+  sessions  sessions[]
+}
