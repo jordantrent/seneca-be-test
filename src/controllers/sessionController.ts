@@ -1,15 +1,26 @@
 import { Request, Response } from 'express';
 import * as sessionService from '../services/sessionService';
+import {createSession} from "../services/sessionService";
 
-export const createSession = async (req: Request, res: Response) => {
+export const handleCreateSession = async (req: Request, res: Response) => {
+    const { timeStudied, courseId, totalModulesStudied, averageScore } = req.body;
+    const userId = req.headers['userid'] as string;
+
     try {
-        const sessionData = req.body;
-        const session = await sessionService.createSession(sessionData);
+        const session = await createSession({
+            timeStudied,
+            courseId,
+            userId,
+            totalModulesStudied,
+            averageScore,
+        });
         res.status(201).json(session);
     } catch (error) {
-        res.status(500).json({ error: 'An error occurred while creating the session.' });
+        console.error('Error creating session:', error);
+        res.status(500).json({ error: 'Failed to create session' });
     }
 };
+
 
 export const getSessionById = async (req: Request, res: Response) => {
     try {
