@@ -4,7 +4,7 @@ import * as userService from '../services/userService';
 export const getUsers = async (req: Request, res: Response) => {
     try {
         const users = await userService.getUsers();
-        res.json(users);
+        res.status(200).json(users);
     } catch (error: any) {
         const message = error.message || 'An error occurred while fetching users';
         res.status(error.statusCode || 500).json({ error: message });

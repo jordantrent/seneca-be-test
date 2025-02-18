@@ -4,10 +4,24 @@ import * as courseService from '../services/courseService';
 export const getCourses = async (req: Request, res: Response) => {
     try {
         const courses = await courseService.getCourses();
-        res.json(200).json(courses);
+        res.status(200).json(courses);
     } catch (error: any) {
         const message = error.message || 'An error occurred while fetching courses';
-        res.status(error.statusCode || 500).json({ error: message });
+        const statusCode = error.message === 'No courses found' ? 404 : error.statusCode || 500;
+        res.status(statusCode).json({ error: message });
+    }
+};
+
+export const getCourseLifetimeStatsById = async (req: Request, res: Response) => {
+    const courseId = req.params.courseId;
+    const userId = req.headers['userid'] as string;
+    try {
+        const course = await courseService.getCourseLifetimeStatsById(courseId, userId);
+        res.status(200).json(course);
+    } catch (error: any) {
+        const message = error.message || 'An error occurred while fetching course stats';
+        const statusCode = error.message === 'No course sessions found' ? 404 : error.statusCode || 500;
+        res.status(statusCode).json({ error: message });
     }
 };
 
@@ -18,7 +32,8 @@ export const getCourseById = async (req: Request, res: Response) => {
         res.status(200).json(course);
     } catch (error: any) {
         const message = error.message || 'An error occurred while fetching course';
-        res.status(error.statusCode || 500).json({ error: message });
+        const statusCode = error.message === 'No courses found' ? 404 : error.statusCode || 500;
+        res.status(statusCode).json({ error: message });
     }
 };
 

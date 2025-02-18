@@ -3,7 +3,8 @@ import * as sessionService from '../services/sessionService';
 import {createSession} from "../services/sessionService";
 
 export const handleCreateSession = async (req: Request, res: Response) => {
-    const { timeStudied, courseId, totalModulesStudied, averageScore } = req.body;
+    const { timeStudied, totalModulesStudied, averageScore } = req.body;
+    const courseId = req.params.courseId;
     const userId = req.headers['userid'] as string;
 
     try {

@@ -22,7 +22,7 @@ describe('sessionService', () => {
             courseId: '1',
             userId: 'user1',
             totalModulesStudied: 10,
-            averageScore: 85,
+            averageScore: 85.0,
         };
 
         const mockCreatedSession = {
@@ -47,7 +47,7 @@ describe('sessionService', () => {
             courseId: '1',
             userId: 'user1',
             totalModulesStudied: 10,
-            averageScore: 85,
+            averageScore: 85.0,
         };
 
         mockCreate.mockRejectedValue(new Error('Database error'));

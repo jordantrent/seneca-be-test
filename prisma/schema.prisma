@@ -19,7 +19,7 @@ model Session {
   userId              String?   @db.Char(36)
   courseId            String?   @db.Char(36)
   totalModulesStudied Int?
-  averageScore        Decimal?  @db.Decimal(5, 2)
+  averageScore        Float?
   timeStudied         Int?
   createdAt           DateTime? @default(now()) @db.Timestamp(0)
   course              Course?   @relation("CourseSessions", fields: [courseId], references: [courseId], onDelete: NoAction, onUpdate: NoAction)
