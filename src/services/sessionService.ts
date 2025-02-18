@@ -25,7 +25,13 @@ export const createSession = async (sessionData: {
 
 
 export const getSessionById = async (sessionId: string) => {
-    return prisma.session.findUnique({
+    const session = await prisma.session.findUnique({
         where: { sessionId: sessionId },
     });
+
+    if (!session) {
+        throw new Error('Session not found');
+    }
+
+    return session;
 };

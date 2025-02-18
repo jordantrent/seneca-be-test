@@ -5,7 +5,13 @@ export const getUsers = async () => {
 };
 
 export const getUserById = async (userId: string) => {
-    return prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: { userId: userId },
     });
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    return user;
 };

@@ -21,17 +21,13 @@ export const handleCreateSession = async (req: Request, res: Response) => {
     }
 };
 
-
 export const getSessionById = async (req: Request, res: Response) => {
     try {
         const sessionId = req.params.sessionId;
         const session = await sessionService.getSessionById(sessionId);
-        if (!session) {
-            res.status(404).json({ error: 'Session not found' });
-        } else {
-            res.json(session);
-        }
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred while fetching the session.' });
+        res.status(200).json(session);
+    } catch (error: any) {
+        const message = error.message || 'An error occurred while fetching session';
+        res.status(error.statusCode || 500).json({ error: message });
     }
 };

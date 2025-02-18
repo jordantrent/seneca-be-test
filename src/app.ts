@@ -10,4 +10,5 @@ app.use('/api', courseRoutes);
 app.use('/api', sessionRoutes);
 app.use('/api', userRoutes);
 
+
 export default app;
