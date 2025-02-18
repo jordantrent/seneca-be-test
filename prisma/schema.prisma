@@ -22,9 +22,8 @@ model Session {
   averageScore        Decimal?  @db.Decimal(5, 2)
   timeStudied         Int?
   createdAt           DateTime? @default(now()) @db.Timestamp(0)
-
-  user   User?   @relation("UserSessions", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
-  course Course? @relation("CourseSessions", fields: [courseId], references: [courseId], onDelete: NoAction, onUpdate: NoAction)
+  course              Course?   @relation("CourseSessions", fields: [courseId], references: [courseId], onDelete: NoAction, onUpdate: NoAction)
+  user                User?     @relation("UserSessions", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([courseId], map: "courseId")
   @@index([userId], map: "userId")

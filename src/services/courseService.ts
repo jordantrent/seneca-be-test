@@ -10,11 +10,17 @@ export const getCourseById = async (courseId: string) => {
     });
 };
 
-export const getSessionsByCourseId = async (courseId: string) => {
+export const getSessionsByCourseId = async (courseId: string, userId?: string) => {
     return prisma.course.findUnique({
         where: { courseId: courseId },
         include: {
-            sessions: true,
+            sessions: {
+                where: userId ? { userId: userId } : undefined,
+            },
         },
     });
+
 };
+
+
+

@@ -28,7 +28,16 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const getSessionsByCourseIdHandler = async (req: Request, res: Response) => {
     try {
         const courseId = req.params.courseId;
-        const courseWithSessions = await getSessionsByCourseId(courseId);
+        const userId = req.headers['userid'] as string;
+
+        // if (userId) {
+        //     const userExists = await userService.getUserById(userId);
+        //     if (!userExists) {
+        //         return res.status(404).json({ error: 'User not found' });
+        //     }
+        // }
+
+        const courseWithSessions = await getSessionsByCourseId(courseId, userId);
 
         if (!courseWithSessions) {
             res.status(404).json({ error: 'Course not found' });
