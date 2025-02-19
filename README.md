@@ -73,5 +73,5 @@
 4. **Run Locally**
 
     ```bash
-     npx prisma generate
+     npx ts-node src/server.ts
    ```
