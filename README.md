@@ -33,7 +33,8 @@
 
 ## IMPORTANT
 
-.env file for the DB details is not included for obvious reasons, I can provide it to the engineer via message for testing if needed.
+- .env file for the DB details is not included for obvious reasons, I can provide it to the engineer via message for testing if needed.
+- if you are testing my endpoints on the deployed server, the routes are prefixed with /api.
 
 ## Steps to Deploy (AWS/etc)
 
