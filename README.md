@@ -42,7 +42,7 @@
    ```bash
    docker build -t seneca-test-api .
     ```
-- This can then be pushed to your Dockerhub, or you can use my image:
+- This can then be pushed to your Dockerhub, or you can use my image if you are using my database:
 
   https://hub.docker.com/repository/docker/jtrent90/seneca-test-api/general
 
