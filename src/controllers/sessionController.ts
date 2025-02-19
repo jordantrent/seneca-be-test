@@ -17,15 +17,16 @@ export const handleCreateSession = async (req: Request, res: Response) => {
         });
         res.status(201).json(session);
     } catch (error) {
-        console.error('Error creating session:', error);
         res.status(500).json({ error: 'Failed to create session' });
     }
 };
 
 export const getSessionById = async (req: Request, res: Response) => {
     try {
+        const userId = req.headers['userid'] as string;
         const sessionId = req.params.sessionId;
-        const session = await sessionService.getSessionById(sessionId);
+        const courseId = req.params.courseId;
+        const session = await sessionService.getSessionById(sessionId, courseId, userId);
         res.status(200).json(session);
     } catch (error: any) {
         const message = error.message || 'An error occurred while fetching session';

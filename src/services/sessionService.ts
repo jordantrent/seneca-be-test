@@ -24,14 +24,23 @@ export const createSession = async (sessionData: {
 };
 
 
-export const getSessionById = async (sessionId: string) => {
+export const getSessionById = async (sessionId: string, courseId: string, userId: string) => {
     const session = await prisma.session.findUnique({
         where: { sessionId: sessionId },
     });
 
     if (!session) {
-        throw new Error('Session not found');
+        throw new Error("Session not found.");
     }
 
-    return session;
+    if (session.courseId !== courseId) {
+        throw new Error("Unauthorized: Course ID does not match.");
+    }
+
+    if (session.userId !== userId) {
+        throw new Error("Unauthorized: User ID does not match.");
+    }
+
+    const { averageScore, timeStudied, totalModulesStudied } = session;
+    return { sessionId, averageScore, timeStudied, totalModulesStudied };
 };
