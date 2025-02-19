@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `Session` MODIFY `userId` CHAR(36) NULL,
+    MODIFY `courseId` CHAR(36) NULL,
+    MODIFY `createdAt` TIMESTAMP(0) NULL DEFAULT CURRENT_TIMESTAMP(0);
